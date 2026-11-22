@@ -31,6 +31,8 @@ Every day, find active Kenyan government tenders that a given small business is 
 - **Most active tenders close within about a week** (316 of 495 on 2026-11-21), so daily runs matter.
 - **The API rate-limits at 60 requests/minute** (`x-ratelimit-limit: 60`, with `Retry-After` on 429). A daily fetch needs only 6 requests, but heavy manual testing can trip it. `_get()` honours `Retry-After` and backs off 5/10/20/40 s.
 - **Cold starts were slow** (about 4 min for the first search on a fresh Streamlit container, measured 2026-11-22), because of the slow portal plus ~25 PDFs. That's why the warm cache exists.
+- **GitHub runners download from the portal less reliably than a local machine.** The first cloud warm-up exported 28 notices against 51 locally. `warm_cache` therefore imports the last published cache before running, so a bad run can never shrink it (fixed 2026-11-22).
+- **`raw.githubusercontent.com` is CDN-cached for about 5 minutes.** To verify a fresh publish, read the file through `gh api .../contents/extractions.json?ref=cache` instead.
 - **There is no per-tender public URL** (the portal opens a modal), so digests link the notice PDF directly.
 
 ## Quota (Groq free tier)
