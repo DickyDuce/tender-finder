@@ -166,7 +166,7 @@ def llm_rank(cands, p):
 
 # ---------- pipeline ----------
 
-WORKERS = 4  # parallel downloads; the portal is slow, Groq's free tier allows ~30 requests/min
+WORKERS = 6  # parallel notice downloads; the portal is slow. Groq allows ~30 req/min and the client retries 429s
 
 
 def extract_many(tenders, db=None, progress=None):
@@ -205,7 +205,7 @@ def extract_many(tenders, db=None, progress=None):
                 store.save_extraction(db, key, out[i])
     return out
 
-def match(tenders, profile, db=None, use_llm=True, top=10, today=None, extractor=None, ranker=None, progress=None):
+def match(tenders, profile, db=None, use_llm=True, top=10, today=None, extractor=None, ranker=None, progress=None, rank=True):
     """Return ranked matches: tender dict + extraction, eligible, notes, score, reason."""
     p = load_profile(profile)
     today = today or datetime.now()
@@ -223,7 +223,7 @@ def match(tenders, profile, db=None, use_llm=True, top=10, today=None, extractor
         c["eligible"], c["notes"] = eligibility(ext, p)
     eligible = [c for c in cands if c["eligible"]]
 
-    scores = ranker(eligible, p) if (use_llm and eligible) else {}
+    scores = ranker(eligible, p) if (use_llm and rank and eligible) else {}
     for c in eligible:
         default = min(10.0, c["keyword_score"])  # without the LLM, fall back to keyword relevance
         c["score"], c["reason"] = scores.get(c["id"], (default, "Keyword match on the title."))

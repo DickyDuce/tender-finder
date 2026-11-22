@@ -222,3 +222,18 @@ def test_fetch_retries_after_rate_limit():
     waits = []
     assert fetch_tenders._get("u", session=Session(), sleep=waits.append) == {"ok": 1}
     assert waits == [5]  # max(Retry-After + 1, 5)
+
+
+def test_cache_export_import_roundtrip(tmp_path):
+    a = store.connect(tmp_path / "a.db")
+    store.save_extraction(a, "u1", extraction("women"))
+    store.save_extraction(a, "u2", extraction("open"))
+    data = store.export_extractions(a, {"u1", "missing"})
+    assert list(data) == ["u1"]
+
+    b = store.connect(tmp_path / "b.db")
+    store.save_extraction(b, "u1", extraction("youth"))  # local entry must win
+    assert store.import_extractions(b, {**data, "u3": extraction("pwd"), "bad": "x"}) == 1
+    assert store.get_extraction(b, "u1")["reserved_for"] == "youth"
+    assert store.get_extraction(b, "u3")["reserved_for"] == "pwd"
+    assert store.get_extraction(b, "bad") is None

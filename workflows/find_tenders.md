@@ -12,7 +12,8 @@ Every day, find active Kenyan government tenders that a given small business is 
 2. **Match:** `python -m tools.match profiles/<id>.yaml`. The steps are rules → BM25 prefilter (top 25) → notice extraction (`tools/extract_notice.py`, cached by document URL, 4 parallel workers) → eligibility rules → one batched LLM call for ranking.
 3. **Deliver:** `python -m tools.run_daily [--profile <id>] [--dry-run]`. It runs fetch, match for each profile and digest, sends only tenders not sent before for that profile, and records them in the `sent` table.
 4. **Scheduled (optional, off by default since 2026-11-22):** `.github/workflows/daily.yml` runs step 3 on demand (`workflow_dispatch`). Uncomment its `schedule:` block for 06:00 EAT runs. Its `.tmp/` state persists through `actions/cache`. The owner doesn't want alerts, so keep it off unless they ask.
-5. **Measure:** `python -m evals.extraction_eval` re-scores extraction against `evals/labels.json`. Run it after any prompt or model change.
+5. **Warm cache (keeps the web app fast):** `.github/workflows/warm_cache.yml` runs daily at 05:30 EAT. `python -m tools.warm_cache` extracts the notices for all sample profiles' candidates (no ranking calls) and force-pushes `extractions.json` to the single-commit `cache` branch. The app imports it at start-up (`CACHE_URL`) and background-warms anything missing. It needs the `GROQ_API_KEY` Actions secret, and skips cleanly without it. Before the first publish, scan the export for emails and phone numbers: it should contain only notice-derived fields.
+6. **Measure:** `python -m evals.extraction_eval` re-scores extraction against `evals/labels.json`. Run it after any prompt or model change.
 
 ## Rules that must not be broken
 - **Personal data:** the API response includes procurement officers' ID numbers, phone numbers, personal emails and tokens (`created_by`, `team_members`, `bidders`). Only the `FIELDS` allow-list in `fetch_tenders.py` may leave `clean()`. Never write raw API responses to disk or logs. `tests/test_pipeline.py::test_no_personal_data_survives` enforces this.
@@ -29,6 +30,7 @@ Every day, find active Kenyan government tenders that a given small business is 
 - **The portal keeps some tenders "active" after opening or award.** `past_bidding()` drops tenders that have opening minutes, evaluation, award or termination documents.
 - **Most active tenders close within about a week** (316 of 495 on 2026-11-21), so daily runs matter.
 - **The API rate-limits at 60 requests/minute** (`x-ratelimit-limit: 60`, with `Retry-After` on 429). A daily fetch needs only 6 requests, but heavy manual testing can trip it. `_get()` honours `Retry-After` and backs off 5/10/20/40 s.
+- **Cold starts were slow** (about 4 min for the first search on a fresh Streamlit container, measured 2026-11-22), because of the slow portal plus ~25 PDFs. That's why the warm cache exists.
 - **There is no per-tender public URL** (the portal opens a modal), so digests link the notice PDF directly.
 
 ## Quota (Groq free tier)

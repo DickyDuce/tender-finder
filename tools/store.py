@@ -88,6 +88,26 @@ def save_extraction(db, doc_url, data):
     db.commit()
 
 
+def export_extractions(db, doc_urls):
+    """{doc_url: extraction} for the given documents (used to publish a shared warm cache)."""
+    out = {}
+    for url in doc_urls:
+        if url and (e := get_extraction(db, url)):
+            out[url] = e
+    return out
+
+
+def import_extractions(db, data):
+    """Load a published warm cache. Existing local entries win. Returns how many were added."""
+    before = db.total_changes
+    db.executemany(
+        "INSERT OR IGNORE INTO extractions (doc_url, data, created) VALUES (?, ?, ?)",
+        [(url, json.dumps(e), now()) for url, e in data.items() if isinstance(e, dict) and e.get("status")],
+    )
+    db.commit()
+    return db.total_changes - before
+
+
 def already_sent(db, profile):
     return {r[0] for r in db.execute("SELECT tender_id FROM sent WHERE profile = ?", (profile,))}
 

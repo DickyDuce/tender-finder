@@ -2,7 +2,7 @@
 
 **An AI agent that reads Kenya's government tender notices and tells a small business which ones it can actually bid for.**
 
-**[▶ Try the live demo](https://kenya-tender-finder.streamlit.app/)**: pick a sample business or describe your own, then click *Find my tenders*. *(The first search after the app wakes up reads each notice from the government portal and can take a few minutes; later searches use the cache.)*
+**[▶ Try the live demo](https://kenya-tender-finder.streamlit.app/)**: pick a sample business or describe your own, then click *Find my tenders*. *(If the app has been asleep it takes ~30 s to wake up.)*
 
 Kenya publishes around 500 active government tenders at any time on the [Public Procurement Information Portal](https://tenders.go.ke). Small businesses miss most of them. The listing shows only a title and a deadline. The details that decide whether you can bid (*reserved for youth? NCA 6 or better? KES 500,000 bid security?*) are buried in PDF notices. And most tenders close within a week of being posted (316 of 495 on the day I measured).
 
@@ -31,7 +31,9 @@ tenders.go.ke API ─► fetch_tenders ─► SQLite (allow-listed fields only)
                          Streamlit app   ·   digest ─► Telegram (optional, GitHub Actions)
 ```
 
-**Designed for a free tier.** Deterministic filters cut ~500 tenders to 25 before any AI call. Extractions are cached by document URL, so after the first day only new tenders cost tokens, typically fewer than 15 calls a day. Downloads run 4 at a time because the portal can be slow.
+**Designed for a free tier.** Deterministic filters cut ~500 tenders to 25 before any AI call. Extractions are cached by document URL, so after the first day only new tenders cost tokens, typically fewer than 15 calls a day. Downloads run 6 at a time because the portal can be slow.
+
+**Fast for visitors.** Reading ~25 PDFs from a slow government server takes minutes, so a scheduled job (`.github/workflows/warm_cache.yml`) pre-reads the notices for the sample businesses every morning and publishes them as one small JSON file on the `cache` branch. The app loads that file when it starts, then quietly reads anything still missing in a background thread. A visitor's search mostly hits the cache.
 
 ## Does the extraction work? (evaluation)
 I hand-labelled 18 real notices from the PDF text, without looking at the model's answers. The labels include multi-tender tables, scanned-then-fallback documents and the traps listed below. `python -m evals.extraction_eval` re-runs the real pipeline against them:
@@ -76,7 +78,7 @@ Add your own business as a YAML file in `profiles/` (copy one of the three sampl
 
 ## Project layout
 ```
-tools/       fetch_tenders · store · extract_notice · match · digest · telegram · run_daily · llm
+tools/       fetch_tenders · store · extract_notice · match · digest · telegram · run_daily · warm_cache · llm
 profiles/    three synthetic sample businesses (youth ICT supplier, women NCA 6 contractor, coast stationery supplier)
 evals/       hand-labelled notices + accuracy script
 workflows/   the operating procedure, including every data quirk found while building

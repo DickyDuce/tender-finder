@@ -16,8 +16,14 @@ try:
 except Exception:  # no secrets file locally
     pass
 
+from concurrent.futures import ThreadPoolExecutor  # noqa: E402
+
+import requests  # noqa: E402
+
 from tools import digest, fetch_tenders, llm, store  # noqa: E402
-from tools.match import load_profile, match  # noqa: E402
+from tools.extract_notice import cache_key, cacheable, extract_uncached  # noqa: E402
+from tools.match import WORKERS, load_profile, match, passes_rules, prefilter  # noqa: E402
+from tools.warm_cache import CACHE_URL  # noqa: E402
 
 PROFILES = {p.stem: load_profile(p) for p in sorted((Path(__file__).parent / "profiles").glob("*.yaml"))}
 CATEGORIES = ["Works", "Goods", "Non Consultancy Services", "Consultancy Services"]
@@ -30,7 +36,15 @@ st.set_page_config(page_title="Kenya Tender Finder", page_icon="📢", layout="w
 
 @st.cache_resource
 def db_and_lock():
-    return store.connect(shared=True), threading.Lock()
+    db = store.connect(shared=True)
+    # Seed with notices pre-read by the scheduled warm-cache job, so searches don't start cold.
+    try:
+        r = requests.get(CACHE_URL, timeout=15)
+        if r.ok:
+            store.import_extractions(db, r.json().get("extractions", {}))
+    except Exception:  # cache is an optimisation only
+        pass
+    return db, threading.Lock()
 
 
 @st.cache_data(ttl=6 * 3600, show_spinner="Fetching active tenders from tenders.go.ke…")
@@ -40,6 +54,37 @@ def load_tenders():
     with lock:
         store.upsert_tenders(db, tenders)
     return tenders, datetime.now()
+
+
+def _warm(tenders):
+    """Background: read notices the sample profiles will need, before anyone clicks.
+    Downloads run without the lock; the lock is held only for quick cache reads/writes."""
+    db, lock = db_and_lock()
+    today = datetime.now()
+    todo = {}
+    for p in PROFILES.values():
+        for t in prefilter([t for t in tenders if passes_rules(t, p, today)], p):
+            key = cache_key(t)
+            with lock:
+                cached = store.get_extraction(db, key) if key else True
+            if not cached:
+                todo[key] = t
+
+    def one(t):
+        result = extract_uncached(t)
+        if cacheable(result):
+            with lock:
+                store.save_extraction(db, cache_key(t), result)
+
+    with ThreadPoolExecutor(WORKERS) as pool:
+        list(pool.map(one, todo.values()))
+
+
+@st.cache_resource
+def start_warmup(_tenders):
+    if llm.is_configured():
+        threading.Thread(target=_warm, args=(_tenders,), daemon=True).start()
+    return True
 
 
 # ---------- sidebar: business profile ----------
@@ -85,6 +130,7 @@ except Exception as e:
     st.error(f"Could not reach tenders.go.ke right now ({e}). Try again in a few minutes.")
     st.stop()
 
+start_warmup([t for t in tenders if not fetch_tenders.past_bidding(t)])
 today = datetime.now()
 open_t = [t for t in tenders if t["close_at"] >= today.strftime("%Y-%m-%d")]
 c1, c2, c3 = st.columns(3)
