@@ -1,0 +1,152 @@
+{
+ "_about": "Hand-labelled from the public notice text on 2026-11-21, independently of model output. bid_security_kes null = not stated as a KES amount in the pages read; \"skip\" = ambiguous (e.g. different per lot).",
+ "items": [
+  {
+   "tender_ref": "RU/NGCDF/001/2026-2027",
+   "doc_url": "https://tenders.go.ke/storage/Documents/1795030642547-tender-notice.pdf",
+   "reserved_for": "youth",
+   "nca_category": 6,
+   "bid_security_kes": null,
+   "note": "multi-tender table; row 1 = Youth"
+  },
+  {
+   "tender_ref": "RU/NGCDF/003/2026-2027",
+   "doc_url": "https://tenders.go.ke/storage/Documents/1795030948860-tender-advert.pdf",
+   "reserved_for": "open",
+   "nca_category": 6,
+   "bid_security_kes": null,
+   "note": "same notice; row 3 = All"
+  },
+  {
+   "tender_ref": "LW/NG CDF/RFQ 002/2026-2027",
+   "doc_url": "https://tenders.go.ke/storage/Documents/1794927754857-advert.pdf",
+   "reserved_for": "women",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "note": "'CATEGORY-12' is a prequalification category, not NCA; security is 2%"
+  },
+  {
+   "tender_ref": "KALRO/NAVCDP/NCB/002/2026-2027",
+   "doc_url": "https://tenders.go.ke/storage/Documents/1793774237946-tender-notice.pdf",
+   "reserved_for": "open",
+   "nca_category": null,
+   "bid_security_kes": 760000
+  },
+  {
+   "tender_ref": "NCC/M&W/T/047/2026-2027",
+   "doc_url": "https://tenders.go.ke/storage/Documents/1794296780384-supply-and-delivery-of-paving-slabs-channels-kerbs-cement.pdf",
+   "reserved_for": "open",
+   "nca_category": null,
+   "bid_security_kes": null
+  },
+  {
+   "tender_ref": "UOK/853/0145/2026-27",
+   "reserved_for": "women",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "note": "multi-tender table; 'Reserved for Women (AGPO)'",
+   "doc_url": "https://tenders.go.ke/storage/Documents/1795080359128-tender-notice.pdf",
+   "title": "Supply and Delivery of Medical Equipment"
+  },
+  {
+   "tender_ref": "UOK/853/0143/2026-27",
+   "reserved_for": "open",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "doc_url": "https://tenders.go.ke/storage/Documents/1795081415473-tender-notice.pdf",
+   "title": "Proposed Completion of University Library Phase 1 - Supply, Delivery, Installation, Testing and Commissioning of Sanitary Fittings, Plumbing, Drainage and Fire Protection installation Works – Readvertisement"
+  },
+  {
+   "tender_ref": "CGN/TCTC/ONT/001/2026-2027",
+   "reserved_for": "pwd",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "doc_url": "https://tenders.go.ke/storage/Documents/1794851652711-tender-for-the-proposed-construction-of-4-door-toilet-with-urinal-at-mungetho-in-nyota.pdf",
+   "title": "Tender for the Proposed construction of 4 door toilet with urinal at Mungetho in Nyota Ward, Kuresoi North Sub-County."
+  },
+  {
+   "tender_ref": "CGN/TCTC/ONT/003/2026-2027",
+   "reserved_for": "women",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "doc_url": "https://tenders.go.ke/storage/Documents/1794851793802-tender-for-the-proposed-fencing-of-lare-ward-cooperatives-store-with-chain-link-and-co.pdf",
+   "title": "Tender for the Proposed Fencing of Lare ward cooperatives store with chain link and concrete post with gate installation in Lare Ward, Njoro Sub-County"
+  },
+  {
+   "tender_ref": "CGN/FIN/ONT/003C/2026-2027",
+   "reserved_for": "open",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "doc_url": "https://tenders.go.ke/storage/Documents/1795031434945-tender-for-the-proposed-solarization-of-revenue-offices-at-kuresoi-north-and-south-sub.pdf",
+   "title": "TENDER FOR THE PROPOSED SOLARIZATION OF REVENUE OFFICES AT KURESOI NORTH AND SOUTH SUB-COUNTY"
+  },
+  {
+   "tender_ref": "NCC/B&SCA/T/084/2026-2027",
+   "reserved_for": "women",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "note": "cover says AGPO(WOMEN)",
+   "doc_url": "https://tenders.go.ke/storage/Documents/1794568482420-supply-and-delivery-of-office-equipment-and-accessories.pdf",
+   "title": "SUPPLY AND DELIVERY OF OFFICE EQUIPMENT AND ACCESSORIES"
+  },
+  {
+   "tender_ref": "KE-ICTA-571739-NC-RFP",
+   "reserved_for": "open",
+   "nca_category": null,
+   "bid_security_kes": "skip",
+   "note": "security differs per lot",
+   "doc_url": "https://tenders.go.ke/storage/Documents/1794337574077-tender-notice.pdf",
+   "title": "Supply, Design, Delivery, Installation, Configuration, Testing, Commissioning and Maintenance Of an Integrated Government Resource Platform (IGRP) in Three (3) Lots: LOT 1: Integration and Interoperability Platform; LOT 2: Identity and Access Management Federation Services; LOT 3: Digital Signing and Trust Services"
+  },
+  {
+   "tender_ref": "CAN/T/07/2026-2027",
+   "reserved_for": "open",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "doc_url": "https://tenders.go.ke/storage/Documents/1794985923210-construction-of-a-ward-office-nakuru-east-ward-nakuru-town-east-constituency.pdf",
+   "title": "Construction of a Ward Office (Nakuru East Ward, Nakuru Town East Constituency)"
+  },
+  {
+   "tender_ref": "RUIRU/NGCDF/012/2026/2027",
+   "reserved_for": "open",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "doc_url": "https://tenders.go.ke/storage/Documents/1795182867124-advert.pdf",
+   "title": "PROPOSED CABRO INSTALLATION AT GITHUNGURI PRIMARY SCHOOL IN RUIRU CONSTITUENCY."
+  },
+  {
+   "tender_ref": "RUIRU/NGCDF/015/2026/2027",
+   "reserved_for": "open",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "doc_url": "https://tenders.go.ke/storage/Documents/1795184011313-tender-notice.pdf",
+   "title": "PROPOSED CONSTRUCTION OF 2NO.CLASSROOMS AT KAHAWA WENDANI PRIMARY SCHOOL IN RUIRU CONSTITUENCY."
+  },
+  {
+   "tender_ref": "RUIRU/NGCDF/007/2026/2027",
+   "reserved_for": "open",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "doc_url": "https://tenders.go.ke/storage/Documents/1795181385392-advert.pdf",
+   "title": "PROPOSED CONSTRUCTION OF CHAINLINK FENCING AND GATE AT KWIHOTA PRIMARY SCHOOL IN RUIRU CONSTITUENCY."
+  },
+  {
+   "tender_ref": "KAK/CNTY/WACC/03/2026-2027",
+   "reserved_for": "unknown",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "note": "tender document cover + contents only: nothing stated",
+   "doc_url": "https://tenders.go.ke/storage/Documents/1795208658057-tender-document.pdf",
+   "title": "PROPOSED CONSTRUCTION OF ASSISTANT COUNTY COMMISSIONER OFFICE KHWISERO WEST DIVISION"
+  },
+  {
+   "tender_ref": "NCC/GOV/T/027/2026-2027",
+   "reserved_for": "unknown",
+   "nca_category": null,
+   "bid_security_kes": null,
+   "note": "cover + contents only",
+   "doc_url": "https://tenders.go.ke/storage/Documents/1794316740682-bid-document-for-proposed-renovation-of-performance-contracting-governance-monitoring-.pdf",
+   "title": "BID DOCUMENT FOR PROPOSED RENOVATION OF PERFORMANCE CONTRACTING, GOVERNANCE, MONITORING AND EVALUATION OFFICES AND STRUCTURAL OFFICES IN 2ND FLOOR MAIN CITY HALL"
+  }
+ ]
+}

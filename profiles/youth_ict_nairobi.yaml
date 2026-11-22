@@ -1,0 +1,14 @@
+# Synthetic sample business. Not a real company.
+name: Kilele Tech Solutions
+about: >
+  Youth-owned ICT supplier in Nairobi. Supplies and installs computers, laptops, servers,
+  printers, networking (LAN/WiFi, CCTV) and software licences; offers ICT support and maintenance.
+keywords: [computer, computers, laptop, laptops, desktop, server, servers, printer, printers, toner, ict, network, networking, lan, wifi, cctv, software, licence, license, ups, projector, tablets, internet, fibre, ict equipment]
+exclude_keywords: [construction, borehole, road]
+categories: [Goods, Non Consultancy Services]
+counties: [Nairobi, Kiambu, Machakos, Kajiado]
+county_strict: false      # also consider tenders elsewhere, just rank local ones higher
+agpo_group: youth         # youth | women | pwd | null
+nca_category: null        # not a building contractor
+max_bid_security_kes: 200000
+min_days_to_close: 3

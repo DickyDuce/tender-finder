@@ -1,0 +1,16 @@
+# secrets
+.env
+credentials.json
+token.json
+.streamlit/secrets.toml
+
+# private / regenerable
+.tmp/
+LINKEDIN_POST.md
+*.pdf
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/

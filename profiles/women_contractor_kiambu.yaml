@@ -1,0 +1,14 @@
+# Synthetic sample business. Not a real company.
+name: Wanjiru Builders & Civil Works
+about: >
+  Women-owned building contractor based in Kiambu, NCA 6 registered. Builds and renovates
+  classrooms, offices, toilets and staff houses; does cabro paving, fencing and minor civil works.
+keywords: [construction, construct, completion, renovation, renovations, classroom, classrooms, building, block, office, offices, toilet, toilets, latrine, ablution, fencing, fence, cabro, paving, house, houses, hostel, dormitory, kitchen, repair, repairs, partitioning, gate]
+exclude_keywords: [supply of drugs, laboratory reagents]
+categories: [Works]
+counties: [Kiambu, Nairobi, Murang'a, Nakuru]
+county_strict: true
+agpo_group: women
+nca_category: 6
+max_bid_security_kes: 500000
+min_days_to_close: 3

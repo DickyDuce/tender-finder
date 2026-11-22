@@ -1,0 +1,14 @@
+# Synthetic sample business. Not a real company.
+name: Pwani Office Supplies
+about: >
+  Coast-based general supplier of stationery, office furniture, cleaning materials, uniforms,
+  foodstuffs and branded items for schools, hospitals and county offices.
+keywords: [stationery, stationeries, paper, office, furniture, chairs, desks, tables, cleaning, detergents, sanitary, uniforms, uniform, foodstuffs, food, rations, branding, branded, printing, materials, supply, delivery, toners]
+exclude_keywords: [construction]
+categories: [Goods, Non Consultancy Services]
+counties: [Mombasa, Kilifi, Kwale, Lamu, Taita Taveta, Tana River]
+county_strict: true
+agpo_group: null
+nca_category: null
+max_bid_security_kes: 100000
+min_days_to_close: 3
