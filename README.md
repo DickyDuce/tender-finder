@@ -2,7 +2,7 @@
 
 **An AI agent that reads Kenya's government tender notices and tells a small business which ones it can actually bid for.**
 
-<!-- LIVE_DEMO -->
+**[▶ Try the live demo](https://kenya-tender-finder.streamlit.app/)**: pick a sample business or describe your own, then click *Find my tenders*. *(The first search after the app wakes up reads each notice from the government portal and can take a few minutes; later searches use the cache.)*
 
 Kenya publishes around 500 active government tenders at any time on the [Public Procurement Information Portal](https://tenders.go.ke). Small businesses miss most of them. The listing shows only a title and a deadline. The details that decide whether you can bid (*reserved for youth? NCA 6 or better? KES 500,000 bid security?*) are buried in PDF notices. And most tenders close within a week of being posted (316 of 495 on the day I measured).
 
