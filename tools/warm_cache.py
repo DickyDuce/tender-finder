@@ -15,6 +15,8 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+import requests
+
 from tools import fetch_tenders, store
 from tools.extract_notice import cache_key
 from tools.match import load_profile, match
@@ -37,6 +39,13 @@ def main():
     a = ap.parse_args()
 
     db = store.connect()
+    # Start from the last published cache, so a run with slow/failed downloads never shrinks it.
+    try:
+        r = requests.get(CACHE_URL, timeout=30)
+        if r.ok:
+            print(f"Imported {store.import_extractions(db, r.json().get('extractions', {}))} from the published cache")
+    except Exception as e:
+        print(f"Published cache not available ({e}); starting from local state")
     store.upsert_tenders(db, fetch_tenders.fetch_active())
     open_t = store.open_tenders(db)
     profiles = [load_profile(p) for p in sorted(PROFILES_DIR.glob("*.yaml"))]
